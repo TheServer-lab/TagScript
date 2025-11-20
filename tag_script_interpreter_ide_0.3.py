@@ -89,7 +89,8 @@ class SafeEvaluator:
     def eval(self, expr):
         if expr is None:
             return None
-        if isinstance(expr, (int, float, bool, list, dict, tuple, str)):
+        # Only short-circuit non-string primitives; strings should be parsed as expressions
+        if isinstance(expr, (int, float, bool, list, dict, tuple)):
             return expr
         s = self._preprocess(str(expr).strip())
         try:
